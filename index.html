@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: black;
+        }
+
+        .bnn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100px;
+            height: 100px;
+            font-size: 80px;
+            color: white;
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        select {
+            margin-top: 26px;
+            width: 200px;
+            border: 1px solid white;
+            border-radius: 5px;
+            background-color: black;
+            color: white;
+        }
+
+        button {
+            margin-top: 50px;
+        }
+
+        #x {
+            width: 100px;
+            background-color: transparent;
+            border: 3px solid red;
+            color: red;
+            border-radius: 5px;
+        }
+
+        #o {
+            width: 100px;
+            background-color: transparent;
+            border: 3px solid greenyellow;
+            color: greenyellow;
+            border-radius: 5px;
+        }
+
+        .view {
+            width: 200px;
+            height: 36px;
+            background-color: transparent;
+            border: 3px solid yellow;
+            color: yellow;
+            border-radius: 5px;   
+        }
+
+        .heading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+        }
+        li{
+            color:white;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="heading">
+            <h1 style="color:red">Tic</h1>
+            <h1 style="color:greenyellow">Tac</h1>
+            <h1 style="color:yellow">Toe</h1>
+        </div>
+        <center>
+            <li>Please fill the all columns before clicking View Result. Otherwise it will reset everything</li>
+            <li>Just refresh the page to start a New Game</li>
+        </center>
+       
+
+        <center>
+            <select id="select">
+
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+        </center>
+        <center>
+            <button id='x'>x</button>
+            <button id='o'>o</button>
+        </center>
+
+        <br>
+
+        <div class="flex">
+            <div class="bnn" id="1" style="border-right: 5px solid white; border-bottom: 5px solid white;"></div>
+            <div class="bnn" id="2" style="border-right: 5px solid white; border-bottom: 5px solid white;"></div>
+            <div class="bnn" id="3" style="border-bottom: 5px solid white;"></div>
+        </div>
+        <div class="flex">
+            <div class="bnn" id="4" style="border-right: 5px solid white; border-bottom: 5px solid white;"></div>
+            <div class="bnn" id="5" style="border-right: 5px solid white; border-bottom: 5px solid white;"></div>
+            <div class="bnn" id="6" style=" border-bottom: 5px solid white;"></div>
+        </div>
+        <div class="flex">
+            <div class="bnn" id="7" style="border-right: 5px solid white;"></div>
+            <div class="bnn" id="8" style="border-right: 5px solid white;"></div>
+            <div class="bnn" id="9"></div>
+        </div>
+
+
+        <center>
+            <button class="view" id="result">View Result</button>
+        </center>
+    </div>
+    <script>
+        // Declaration
+        let x = document.getElementById('x');
+        let result = document.getElementById('result');
+        let winning_array = [];
+        let array = [];
+        let xvalue = [];
+        let yvalue = [];
+        button = document.querySelectorAll('.bnn');
+        // To store value of X
+        x.addEventListener('click', e => {
+            select = document.getElementById('select');
+            for (i = 1; i <= 9; i++) {
+                if (select.value == i) {
+                    position = document.getElementById(`${i}`);
+                   
+                    if (position.innerText == "x" || position.innerText == "o") {
+                        alert("Sorry Dear,this position is already taken");
+                    }
+                    else {
+                        position.style.color = "red";
+                        position.innerText = x.innerText;
+                        winning_array.push(position.innerText);
+                    }
+                }
+            }
+        })
+        // To store value of o
+        let y = document.getElementById('o');
+        y.addEventListener('click', e => {
+            select = document.getElementById('select')
+            for (i = 1; i <= 9; i++) {
+                if (select.value == i) {
+                    position = document.getElementById(`${i}`);
+                   
+                    if (position.innerText == "x" || position.innerText == "o") {
+                        alert("Sorry Dear,this position is already taken");
+                    }
+                    else {
+                        position.style.color = "greenyellow";
+                        position.innerText = y.innerText;
+                        winning_array.push(position.innerText);
+                    }  
+                }
+            }
+
+        })
+        // To see the result
+        result.addEventListener('click', e => {
+            if (winning_array.length != 9) {
+                alert("Why are you so lazy , please fill the all columns, idiots !!")
+                winning_array.splice(0, winning_array.length)
+                for (m = 0; m < 9; m++) {
+                    if (button[m].innerText == "x" || button[m].innerText == "o") {
+                        button[m].innerText = "";
+                    }
+                }
+            }
+            else {
+                for (i = 0; i < 9; i++) {
+                    array.push(button[i].innerText);
+                }
+                for (p = 0; p < array.length; p++) {
+                    if (array[p] == 'x') {
+                        xvalue.push(array[p]);
+                    }
+                }
+                for (q = 0; q < array.length; q++) {
+                    if (array[q] == 'o') {
+                        yvalue.push(array[q]);
+                    }
+                }
+               
+                if (xvalue.length > 5 || yvalue.length > 5) {
+                    alert('Hey idiot ,you are playing alone please find a partner');
+                }
+                else {
+                   
+                   
+                        if ((array[0] == 'x' && array[1] == 'x' && array[2] == 'x') && (array[3] == 'o' && array[4] == 'o' && array[5] == 'o') || (array[0] == 'o' && array[1] == 'o' && array[2] == 'o') && (array[3] == 'x' && array[4] == 'x' && array[5] == 'x')) {
+                            alert(`${winning_array[0]} is victorious`)
+                            
+                        }
+                        else if ((array[3] == 'x' && array[4] == 'x' && array[5] == 'x') && (array[6] == 'o' && array[7] == 'o' && array[8] == 'o') || (array[3] == 'o' && array[4] == 'o' && array[5] == 'o') && (array[6] == 'x' && array[7] == 'x' && array[8] == 'x')) {
+                            alert(`${winning_array[0]} is victorious`)
+                            
+                        }
+                        else if ((array[6] == 'x' && array[7] == 'x' && array[8] == 'x') && (array[0] == 'o' && array[1] == 'o' && array[2] == 'o') || (array[6] == 'o' && array[7] == 'o' && array[8] == 'o') && (array[0] == 'x' && array[1] == 'x' && array[2] == 'x')) {
+                            alert(`${winning_array[0]} is victorious`)
+                            
+                        }
+                        else if ((array[0] == 'x' && array[3] == 'x' && array[6] == 'x') && (array[1] == 'o' && array[4] == 'o' && array[7] == 'o') || (array[0] == 'o' && array[3] == 'o' && array[6] == 'o') && (array[1] == 'x' && array[4] == 'x' && array[7] == 'x')) {
+                            alert(`${winning_array[0]} is victorious`)
+                            
+                        }
+                        else if ((array[1] == 'x' && array[4] == 'x' && array[7] == 'x') && (array[2] == 'o' && array[5] == 'o' && array[8] == 'o') || (array[1] == 'o' && array[4] == 'o' && array[7] == 'o') && (array[2] == 'x' && array[5] == 'x' && array[8] == 'x')) {
+                            alert(`${winning_array[0]} is victorious`)
+                            
+                        }
+                        else if ((array[2] == 'x' && array[5] == 'x' && array[8] == 'x') && (array[0] == 'o' && array[3] == 'o' && array[6] == 'o') || (array[2] == 'o' && array[5] == 'o' && array[8] == 'o') && (array[0] == 'x' && array[3] == 'x' && array[6] == 'x')) {
+                            alert(`${winning_array[0]} is victorious`)
+                            
+                        }
+
+
+                        else if ((array[0] == 'x' && array[1] == 'x' && array[2] == 'x') || (array[3] == 'x' && array[4] == 'x' && array[5] == 'x') || (array[6] == 'x' && array[7] == 'x' && array[8] == 'x')) {
+                            alert(`x is victorious`)
+                           
+                        }
+                        else if ((array[0] == 'x' && array[3] == 'x' && array[6] == 'x') || (array[1] == 'x' && array[4] == 'x' && array[7] == 'x') || (array[2] == 'x' && array[5] == 'x' && array[8] == 'x')) {
+                            alert(`x is victorious`)
+                          
+                        }
+                        else if ((array[0] == 'o' && array[1] == 'o' && array[2] == 'o') || (array[3] == 'o' && array[4] == 'o' && array[5] == 'o') || (array[6] == 'o' && array[7] == 'o' && array[8] == 'o')) {
+                            alert(`o is victorious`)
+                            
+                        }
+                        else if ((array[0] == 'o' && array[3] == 'o' && array[6] == 'o') || (array[1] == 'o' && array[4] == 'o' && array[7] == 'o') || (array[2] == 'o' && array[5] == 'o' && array[8] == 'o')) {
+                            alert(`o is victorious`)
+                           
+                        }
+                       
+                       
+                        else if ((array[0] == 'o' && array[4] == 'o' && array[8] == 'o') || (array[2] == 'o' && array[4] == 'o' && array[6] == 'o')) {
+                            alert(`o is victorious`)
+                           
+                        }
+                        else if ((array[0] == 'x' && array[4] == 'x' && array[8] == 'x') || (array[2] == 'x' && array[4] == 'x' && array[6] == 'x')) {
+                            alert(`x is victorious`)
+                           
+                        }
+                        else {
+                            alert(`Match Draw`)
+                           
+                        }
+                    }
+               
+
+            }
+        })
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
